@@ -25,11 +25,22 @@ if ($result->num_rows > 0) {
     $admin = $result->fetch_assoc();
     echo "<p style='color: green;'>✓ Admin account exists (ID: {$admin['id']})</p>";
 } else {
+    $bootstrap = [
+        'email' => getenv('RWACULTURE_ADMIN_EMAIL') ?: '',
+        'phone' => getenv('RWACULTURE_ADMIN_PHONE') ?: '',
+        'password' => getenv('RWACULTURE_ADMIN_PASSWORD') ?: '',
+    ];
+    $bootstrap_is_configured = $bootstrap['email'] !== '' && $bootstrap['password'] !== '';
     $bootstrap_file = __DIR__ . '/config/admin-bootstrap.php';
-    if (!is_readable($bootstrap_file)) {
-        echo "<p style='color: red;'>✗ Admin account is missing. Restore config/admin-bootstrap.php, then run setup again.</p>";
-    } else {
+
+    if (!$bootstrap_is_configured && is_readable($bootstrap_file)) {
         $bootstrap = require $bootstrap_file;
+        $bootstrap_is_configured = true;
+    }
+
+    if (!$bootstrap_is_configured) {
+        echo "<p style='color: red;'>✗ Admin account is missing. Configure RWACULTURE_ADMIN_EMAIL and RWACULTURE_ADMIN_PASSWORD in the hosting environment, then run setup again.</p>";
+    } else {
         $valid_bootstrap = is_array($bootstrap)
             && filter_var($bootstrap['email'] ?? '', FILTER_VALIDATE_EMAIL)
             && !empty($bootstrap['password'])

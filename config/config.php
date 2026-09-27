@@ -8,7 +8,11 @@ $site_url = getenv('RWACULTURE_SITE_URL');
 if (!$site_url) {
 	$site_protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 	$site_host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-	$site_url = $site_protocol . '://' . $site_host . '/Rwaculture';
+	$site_path = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/'));
+	$site_path = $site_path === '.' ? '' : $site_path;
+	$site_path = preg_replace('#/(admin|api|buyer|seller|support)$#', '', $site_path);
+	$site_path = $site_path === '/' ? '' : rtrim($site_path, '/');
+	$site_url = $site_protocol . '://' . $site_host . $site_path;
 }
 define('SITE_URL', rtrim($site_url, '/'));
 define('SITE_EMAIL', 'info@rwaculture.com');

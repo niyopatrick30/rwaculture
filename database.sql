@@ -1,9 +1,6 @@
 -- Rwaculture Multi-Vendor E-Commerce Database Schema
 -- MySQL Database
 
-CREATE DATABASE IF NOT EXISTS rwaculture_db;
-USE rwaculture_db;
-
 -- Users Table
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
