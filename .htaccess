@@ -1,0 +1,34 @@
+# Rwaculture .htaccess
+
+# Enable Rewrite Engine
+RewriteEngine On
+
+# Prevent directory listing
+Options -Indexes
+
+# Protect config files
+<FilesMatch "^(config|includes)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect database files
+<FilesMatch "\.sql$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# PHP settings
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+</IfModule>
+
+# Error pages (optional)
+# ErrorDocument 404 /404.php
+# ErrorDocument 500 /500.php

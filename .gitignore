@@ -1,0 +1,5 @@
+/config/admin-bootstrap.php
+/uploads/
+/.env
+/.env.*
+*.log
