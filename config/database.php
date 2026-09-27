@@ -13,10 +13,22 @@ define('DB_PASS', $database_password !== false ? $database_password : '');
 define('DB_NAME', $database_name !== false && $database_name !== '' ? $database_name : 'rwaculture_db');
 
 // Create database connection
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
+$conn = mysqli_init();
+$ssl_ca = getenv('DB_SSL_CA');
+$connection_flags = 0;
 
-// Check connection
-if ($conn->connect_error) {
+if ($ssl_ca !== false && $ssl_ca !== '') {
+    if (!is_readable($ssl_ca)) {
+        die('Database TLS certificate is not readable.');
+    }
+
+    $conn->options(MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, true);
+    $conn->ssl_set(null, null, $ssl_ca, null, null);
+    $connection_flags = MYSQLI_CLIENT_SSL;
+}
+
+$connected = $conn->real_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT, null, $connection_flags);
+if (!$connected) {
     die("Connection failed: " . $conn->connect_error);
 }
 

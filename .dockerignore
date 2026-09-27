@@ -1,0 +1,9 @@
+.git
+.git/**
+.github
+.vscode
+/.env
+/.env.*
+/config/admin-bootstrap.php
+/uploads/
+*.log

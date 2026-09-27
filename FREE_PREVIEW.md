@@ -2,6 +2,8 @@
 
 This project can run on a free PHP/MySQL host as a demonstration. Do not use a free personal-use plan for real customers, real payment proofs, or production data.
 
+The Alwaysdata account created for this preview currently reports the database feature as unavailable. For an alternative free demo route using Render and Aiven, see `RENDER_AIVEN_PREVIEW.md`.
+
 ## Suggested Host
 
 [Alwaysdata Free](https://www.alwaysdata.com/en/offers/) currently lists a free personal-use plan with PHP, MariaDB/MySQL, 1 GB SSD storage, 256 MB RAM, one-quarter CPU, and three days of backups. The plan is limited and is not a production hosting recommendation. Review the provider's current terms and limits before signing up.
