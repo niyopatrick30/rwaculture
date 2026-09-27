@@ -152,10 +152,12 @@ include 'includes/header.php';
                 : 'Welcome to our marketplace! This platform was built to connect talented local sellers with customers who value quality and authenticity.') ?>
         </div>
 
-        <div class="ceo-video">
-            <video src="Advert1.mp4" autoplay muted loop controls></video>
-            <video src="Advert2.mp4" autoplay muted loop controls></video>
-        </div>
+        <?php if (getenv('RWACULTURE_HIDE_PROMO_VIDEOS') !== '1'): ?>
+            <div class="ceo-video">
+                <video src="Advert1.mp4" autoplay muted loop controls></video>
+                <video src="Advert2.mp4" autoplay muted loop controls></video>
+            </div>
+        <?php endif; ?>
     </div>
 
     <!-- ================= FEATURED PRODUCTS ================= -->

@@ -31,13 +31,15 @@ Official plan references: [Render Free limits](https://render.com/docs/free), [A
 
 4. Under the service's **Secret Files**, upload the downloaded CA certificate as `aiven-ca.pem`. The PHP MySQL connection verifies the server certificate when `DB_SSL_CA` is set.
 5. Do not put database credentials, CA contents, or admin passwords in `render.yaml`, Git, or this document.
-6. Once the service is deployed and its database environment variables are saved, set `RWACULTURE_ADMIN_EMAIL`, `RWACULTURE_ADMIN_PHONE`, and a unique demo-only `RWACULTURE_ADMIN_PASSWORD` in the Render environment settings.
-7. Visit `/setup.php` once to create the demo admin. Then remove the `RWACULTURE_ADMIN_*` variables and delete `setup.php` from the deployed source or redeploy without it.
-8. Test using dummy information only.
+6. Set `RWACULTURE_HIDE_PROMO_VIDEOS=1` in the Render environment. The Docker build excludes `.mp4` files to avoid transferring the large Git LFS videos into a bandwidth-limited demo image.
+7. Once the service is deployed and its database environment variables are saved, set `RWACULTURE_ADMIN_EMAIL`, `RWACULTURE_ADMIN_PHONE`, and a unique demo-only `RWACULTURE_ADMIN_PASSWORD` in the Render environment settings.
+8. Visit `/setup.php` once to create the demo admin. Then remove the `RWACULTURE_ADMIN_*` variables and delete `setup.php` from the deployed source or redeploy without it.
+9. Test using dummy information only.
 
 ## Free-Tier Limitations
 
 - Render's free web service sleeps after 15 minutes without traffic and may take about a minute to wake.
 - Render's filesystem is ephemeral. Uploaded profile photos, products, and payment proofs disappear on restart, spin-down, or deploy. Large video playback also uses the free bandwidth allotment quickly.
+- Set `RWACULTURE_HIDE_PROMO_VIDEOS=1` to hide the homepage videos for this demo. Normal local and hosted installs keep them visible unless this variable is set.
 - Aiven Free MySQL is limited to 1 GB of RAM, 1 GB of storage, and 76 simultaneous connections; it may power down after extended inactivity.
 - Render may suspend free services that generate unusually high external traffic. This app makes outbound MySQL connections to Aiven, so the combination is for a light demo only.

@@ -6,4 +6,5 @@
 /.env.*
 /config/admin-bootstrap.php
 /uploads/
+*.mp4
 *.log
