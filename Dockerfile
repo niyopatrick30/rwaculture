@@ -1,7 +1,7 @@
 FROM php:8.3-apache
 
 RUN docker-php-ext-install mysqli \
-    && a2enmod rewrite headers
+    && a2enmod rewrite headers access_compat
 
 WORKDIR /var/www/html
 COPY . /var/www/html/
